@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { distanceMeters, formatDistance, formatDuration, walkingMinutes } from './geo'
+import { CELL_MAX_OFFSET_M, distanceMeters, formatDistance, formatDuration, gridCell, walkingMinutes } from './geo'
 
 describe('distanceMeters', () => {
   it('ist 0 für denselben Punkt', () => {
@@ -38,5 +38,28 @@ describe('Formatierung', () => {
     expect(formatDuration(45)).toBe('45 Min.')
     expect(formatDuration(60)).toBe('1 Std.')
     expect(formatDuration(95)).toBe('1 Std. 35 Min.')
+  })
+})
+
+describe('gridCell', () => {
+  it('liefert für nahe Punkte dieselbe Zelle', () => {
+    const a = gridCell({ lat: 48.1360, lng: 11.5755 })
+    const b = gridCell({ lat: 48.1366, lng: 11.5762 })
+    expect(a.key).toBe(b.key)
+  })
+
+  it('liefert für 1 km entfernte Punkte verschiedene Zellen', () => {
+    expect(gridCell({ lat: 48.137, lng: 11.575 }).key).not.toBe(gridCell({ lat: 48.146, lng: 11.575 }).key)
+  })
+
+  it('Zellmittelpunkt liegt innerhalb des maximalen Versatzes', () => {
+    for (const p of [
+      { lat: 48.13743, lng: 11.57549 },
+      { lat: 64.1466, lng: -21.9426 },
+      { lat: -33.8688, lng: 151.2093 },
+      { lat: 0.0024, lng: 0.0024 },
+    ]) {
+      expect(distanceMeters(p, gridCell(p).center)).toBeLessThan(CELL_MAX_OFFSET_M)
+    }
   })
 })
