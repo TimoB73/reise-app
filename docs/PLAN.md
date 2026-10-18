@@ -21,4 +21,8 @@
 - `members`: trip_id, user_id, display_name (max. 2 pro Reise, Beitritt über RPC `join_trip`)
 - `favorites`: trip_id, user_id, poi_id, name, kind, lat, lng, saved (bool), visited (bool) – „Gemerkt“ und „Besucht“ unabhängig voneinander
 - `positions`: trip_id, user_id, lat, lng, updated_at
-- RLS: nur Mitglieder lesen; Schreiben nur bis einschließlich Enddatum.
+- RLS: nur Mitglieder lesen; Schreiben nur bis einschließlich Enddatum (1 Tag Puffer für Zeitzonen).
+- Code: 6 Zeichen aus `ABCDEFGHJKMNPQRSTUVWXYZ23456789` (ohne 0/O/1/I/L), ~1 Mrd. Kombinationen.
+- Favoriten werden nie gelöscht, nur auf saved=false/visited=false gesetzt (Realtime liefert DELETE-Ereignisse ohne RLS-Filter).
+- Position: Senden bei ≥ 25 m Bewegung (min. alle 10 s) und als Herzschlag alle 60 s; älter als 3 min = „App geschlossen“ → nicht angezeigt.
+- Karte: Farblegende; Blau = du, Orange = Partner, gelber Rand = gemerkt.

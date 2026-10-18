@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { Spinner } from './StatusMessage'
+import FavoritesToast from './FavoritesToast'
 import OfflineBanner from './OfflineBanner'
 
 const TITLES: Record<string, string> = {
@@ -8,6 +9,10 @@ const TITLES: Record<string, string> = {
   '/essen': 'Restaurants & Bars',
   '/ort': 'Ort wählen',
   '/info': 'Info',
+  '/reise': 'Reise',
+  '/reise/neu': 'Neue Reise',
+  '/reise/beitreten': 'Reise beitreten',
+  '/merkliste': 'Merkliste',
 }
 
 export default function Layout() {
@@ -43,6 +48,7 @@ export default function Layout() {
           <Outlet />
         </Suspense>
       </main>
+      <FavoritesToast />
     </div>
   )
 }
