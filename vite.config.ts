@@ -40,9 +40,35 @@ export default defineConfig({
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
         navigateFallback: 'index.html',
+        maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
+        runtimeCaching: [
+          {
+            // Bereits angesehene Kartenkacheln für schlechten Empfang vorhalten
+            urlPattern: /^https:\/\/tile\.openstreetmap\.org\//,
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'osm-tiles',
+              expiration: { maxEntries: 400, maxAgeSeconds: 7 * 24 * 3600 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+          {
+            urlPattern: /^https:\/\/(upload\.wikimedia\.org|commons\.wikimedia\.org)\//,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'wiki-images',
+              expiration: { maxEntries: 300, maxAgeSeconds: 30 * 24 * 3600 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+        ],
       },
     }),
   ],
+  build: {
+    // Der Restaurant-Chunk enthält die Öffnungszeiten-Bibliothek inkl. Feiertagsdaten (wird nur dort geladen)
+    chunkSizeWarningLimit: 800,
+  },
   test: {
     environment: 'node',
     include: ['src/**/*.test.ts'],

@@ -35,3 +35,21 @@ export function formatDuration(minutes: number): string {
   const m = minutes % 60
   return m === 0 ? `${h} Std.` : `${h} Std. ${m} Min.`
 }
+
+/** Rastergröße für den Cache: ~555 m in Nord-Süd-Richtung. */
+const CELL_DEG = 0.005
+
+/**
+ * Teilt die Welt in Zellen von ca. 500 m. Positionen innerhalb derselben Zelle
+ * teilen sich zwischengespeicherte Ergebnisse.
+ */
+export function gridCell(p: LatLng): { key: string; center: LatLng } {
+  const row = Math.round(p.lat / CELL_DEG)
+  const lat = row * CELL_DEG
+  const lngStep = CELL_DEG / Math.max(0.1, Math.cos(toRad(lat)))
+  const col = Math.round(p.lng / lngStep)
+  return { key: `${row}:${col}`, center: { lat, lng: col * lngStep } }
+}
+
+/** Maximaler Abstand einer Position zum Mittelpunkt ihrer Zelle (halbe Diagonale, aufgerundet). */
+export const CELL_MAX_OFFSET_M = 450

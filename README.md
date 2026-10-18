@@ -4,6 +4,17 @@ Sightseeing-App für zwei Reisende als **Progressive Web App (PWA)**. Sie zeigt 
 
 👉 **App öffnen:** https://timob73.github.io/reise-app/
 
+## Funktionen
+
+- 📍 **Standort** per GPS oder manuelle Ortssuche
+- 🚶 **Highlights zu Fuß**: Sehenswürdigkeiten im Umkreis von 2 km mit Gehzeit, Kurzbeschreibung und Bild aus Wikipedia
+- 🍽️ **Restaurants & Bars** im Umkreis von 2 km, Filter nach Art, Küche und „jetzt geöffnet“
+- 🗺️ Umschaltbar zwischen **Liste und Karte**
+- ☆ **Merken**, ✓ **Besucht** und ➜ **Route** (Apple Maps auf dem iPhone, sonst Google Maps)
+- 🌙 Dunkelmodus nach Systemeinstellung, Offline-Grundfunktion
+
+*In Arbeit: Kopplung zu zweit, Ziele mit dem Auto, Geschichte der Region.*
+
 ## App auf dem Handy installieren
 
 Die App muss nicht aus einem App Store geladen werden. Man legt sie einfach auf den Home-Bildschirm.
