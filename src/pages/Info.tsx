@@ -46,6 +46,16 @@ export default function Info() {
       </section>
 
       <section className="rounded-2xl bg-white p-4 shadow-sm dark:bg-slate-900">
+        <h2 className="text-lg font-semibold">Datenschutz</h2>
+        <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-600 dark:text-slate-300">
+          <li>Ohne gemeinsame Reise bleiben alle Daten auf diesem Gerät.</li>
+          <li>In einer Reise sehen nur die beiden Mitreisenden eure Namen, Merklisten und Besuche.</li>
+          <li>Dein Standort wird nur geteilt, wenn der Schalter unter „Reise“ an ist, und nur solange die App geöffnet ist.</li>
+          <li>Die Anmeldung ist anonym – es werden keine E-Mail-Adressen oder Telefonnummern gespeichert.</li>
+        </ul>
+      </section>
+
+      <section className="rounded-2xl bg-white p-4 shadow-sm dark:bg-slate-900">
         <h2 className="text-lg font-semibold">Technischer Status</h2>
         <ul className="mt-2 divide-y divide-slate-100 text-sm dark:divide-slate-800">
           <Status ok={isConfigured.supabase} label="Supabase (Synchronisierung)" />

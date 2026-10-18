@@ -11,9 +11,21 @@ Sightseeing-App für zwei Reisende als **Progressive Web App (PWA)**. Sie zeigt 
 - 🍽️ **Restaurants & Bars** im Umkreis von 2 km, Filter nach Art, Küche und „jetzt geöffnet“
 - 🗺️ Umschaltbar zwischen **Liste und Karte**
 - ☆ **Merken**, ✓ **Besucht** und ➜ **Route** (Apple Maps auf dem iPhone, sonst Google Maps)
+- 👫 **Reise zu zweit**: Handys per 6-stelligem Code oder QR-Code koppeln, Merklisten und Besuche live teilen, Standort des Partners auf der Karte (abschaltbar, nur bei geöffneter App)
+- ⭐ **Merkliste** mit eigenen und den Orten des Partners
 - 🌙 Dunkelmodus nach Systemeinstellung, Offline-Grundfunktion
 
-*In Arbeit: Kopplung zu zweit, Ziele mit dem Auto, Geschichte der Region.*
+*In Arbeit: Ziele mit dem Auto, Geschichte der Region.*
+
+## Reise zu zweit koppeln
+
+1. Eine Person tippt auf der Startseite auf **„Zu zweit unterwegs?“** → **„Neue Reise anlegen“**, gibt Reisename, Daten und ihren Namen ein.
+2. Die App zeigt einen **6-stelligen Code** und einen **QR-Code**.
+3. Die zweite Person wählt **„Reise beitreten“** und scannt den QR-Code (📷) oder tippt den Code ein.
+4. Fertig – ab jetzt seht ihr gegenseitig, was gemerkt oder besucht wurde.
+
+Nach dem Enddatum wird die Reise archiviert: Alles bleibt lesbar, kann aber nicht mehr geändert werden.
+Wurde die App auf einem Handy gelöscht, kann die Person, die die Reise angelegt hat, unter **„Reise“ → „Partner-Platz freigeben“** einen neuen Beitritt ermöglichen.
 
 ## App auf dem Handy installieren
 
@@ -57,4 +69,8 @@ npm run icons                # PNG-Icons aus public/icon.svg neu erzeugen
 
 **Deployment:** Jeder Push auf `main` baut die App per GitHub Actions (`.github/workflows/deploy.yml`) und veröffentlicht sie auf GitHub Pages. Die Keys kommen aus den Repository Secrets `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY` und `VITE_ORS_API_KEY`.
 
-**Datenbank:** SQL-Migrationen liegen unter `supabase/migrations/` und werden im Supabase SQL Editor ausgeführt.
+**Datenbank:** SQL-Migrationen liegen unter `supabase/migrations/` und werden in Reihenfolge im Supabase SQL Editor ausgeführt (jede Datei genau einmal). Voraussetzung in Supabase: *Authentication → Sign In / Providers → Anonymous sign-ins* aktiviert.
+
+| Datei | Inhalt |
+|---|---|
+| `0001_init.sql` | Tabellen `trips`, `members`, `favorites`, `positions`, RLS-Regeln, Funktionen `create_trip`, `join_trip`, `remove_partner`, Realtime |

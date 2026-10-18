@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom'
 import LocationBar from '../components/LocationBar'
+import TripBanner from '../components/TripBanner'
+import { useFavoritesSnapshot } from '../lib/favorites'
 
 const categories = [
   { icon: '🚶', title: 'Highlights zu Fuß', subtitle: 'Sehenswertes im Umkreis von 2 km', to: '/zu-fuss' },
@@ -12,9 +14,13 @@ const categories = [
 const tile = 'flex min-h-20 w-full items-center gap-4 rounded-2xl bg-white p-4 text-left shadow-sm dark:bg-slate-900'
 
 export default function Home() {
+  const snapshot = useFavoritesSnapshot()
+  const savedCount = Object.values(snapshot.records).filter((r) => r.userId === snapshot.myId && r.saved).length
+
   return (
     <div className="space-y-4">
       <LocationBar />
+      <TripBanner />
       <ul className="space-y-3">
         {categories.map((c) => {
           const content = (
@@ -50,6 +56,20 @@ export default function Home() {
           )
         })}
       </ul>
+      <Link to="/merkliste" className={`${tile} active:bg-slate-100 dark:active:bg-slate-800`}>
+        <span className="text-3xl" aria-hidden>
+          ⭐
+        </span>
+        <span className="flex-1">
+          <span className="block font-semibold">Merkliste</span>
+          <span className="block text-sm text-slate-500 dark:text-slate-400">
+            {savedCount === 0 ? 'Gemerkte und besuchte Orte' : `${savedCount} ${savedCount === 1 ? 'Ort' : 'Orte'} gemerkt`}
+          </span>
+        </span>
+        <span className="text-2xl text-slate-400" aria-hidden>
+          ›
+        </span>
+      </Link>
     </div>
   )
 }

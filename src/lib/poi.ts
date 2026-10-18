@@ -29,21 +29,22 @@ export interface PoiWithDistance extends Poi {
   distance: number
 }
 
+// Farben: klar unterscheidbar und nie Blau (= du) oder Orange (= Partner)
 export const KIND_INFO: Record<PoiKind, { icon: string; label: string; color: string }> = {
-  museum: { icon: '🏛️', label: 'Museum', color: '#7c3aed' },
-  viewpoint: { icon: '🔭', label: 'Aussichtspunkt', color: '#0284c7' },
+  museum: { icon: '🏛️', label: 'Museum', color: '#7e22ce' },
+  viewpoint: { icon: '🔭', label: 'Aussichtspunkt', color: '#16a34a' },
   artwork: { icon: '🎨', label: 'Kunstwerk', color: '#db2777' },
-  castle: { icon: '🏰', label: 'Burg / Schloss', color: '#b45309' },
-  church: { icon: '⛪', label: 'Kirche', color: '#4f46e5' },
-  monument: { icon: '🗿', label: 'Denkmal', color: '#57534e' },
-  ruins: { icon: '🧱', label: 'Ruine', color: '#92400e' },
+  castle: { icon: '🏰', label: 'Burg / Schloss', color: '#b91c1c' },
+  church: { icon: '⛪', label: 'Kirche', color: '#0f766e' },
+  monument: { icon: '🗿', label: 'Denkmal', color: '#64748b' },
+  ruins: { icon: '🧱', label: 'Ruine', color: '#78350f' },
   archaeological: { icon: '⛏️', label: 'Ausgrabungsstätte', color: '#a16207' },
-  attraction: { icon: '⭐', label: 'Sehenswürdigkeit', color: '#d97706' },
-  historic: { icon: '📜', label: 'Historischer Ort', color: '#78716c' },
+  attraction: { icon: '⭐', label: 'Sehenswürdigkeit', color: '#06b6d4' },
+  historic: { icon: '📜', label: 'Historischer Ort', color: '#1e293b' },
   restaurant: { icon: '🍽️', label: 'Restaurant', color: '#dc2626' },
   cafe: { icon: '☕', label: 'Café', color: '#a16207' },
-  bar: { icon: '🍸', label: 'Bar', color: '#9333ea' },
-  pub: { icon: '🍺', label: 'Kneipe', color: '#ca8a04' },
+  bar: { icon: '🍸', label: 'Bar', color: '#7e22ce' },
+  pub: { icon: '🍺', label: 'Kneipe', color: '#0f766e' },
   biergarten: { icon: '🌳', label: 'Biergarten', color: '#16a34a' },
 }
 
